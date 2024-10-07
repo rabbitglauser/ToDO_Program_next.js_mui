@@ -1,15 +1,15 @@
 // src/app/components/TaskForm.tsx
 'use client';
 
-import React, { useState } from 'react';
-import { Button, TextField, Grid, Snackbar, Alert } from '@mui/material';
-import { Task } from '../types'; // Import Task type
+import React, {useState} from 'react';
+import {Button, TextField, Grid, Snackbar, Alert} from '@mui/material';
+import {Task} from '../types'; // Import Task type
 
 interface TaskFormProps {
     addTask: (task: Task) => void; // Use Task type here
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
+const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState(1);
@@ -19,8 +19,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
-        if (!title.trim() || priority <= 0) {
-            setError('Title is required and priority must be greater than zero.');
+        if (!title.trim() || priority < 0 || priority > 10) {
+            setError('Title is required and priority must be between 0 and 10.');
             setOpenSnackbar(true);
             return;
         }
@@ -41,8 +41,14 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
         setOpenSnackbar(false);
     };
 
+    const getPriorityColor = (priority: number): string => {
+        if (priority <= 3) return 'green';
+        if (priority <= 6) return 'orange';
+        return 'red';
+    };
+
     return (
-        <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+        <form onSubmit={handleSubmit} style={{marginBottom: '20px'}}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TextField
@@ -85,10 +91,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
                         onChange={(e) => setPriority(Number(e.target.value))}
                         required
                         fullWidth
-                        inputProps={{ min: 1 }}
+                        inputProps={{min: 0, max: 10}}
                         style={{
                             backgroundColor: '#e0f7fa', // Light Cyan
                             borderRadius: '5px',
+                        }}
+                        InputProps={{
+                            style: {
+                                color: getPriorityColor(priority),
+                            },
                         }}
                     />
                 </Grid>
@@ -112,7 +123,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
                 </Grid>
             </Grid>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-                <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={handleCloseSnackbar} severity="error" sx={{width: '100%'}}>
                     {error}
                 </Alert>
             </Snackbar>

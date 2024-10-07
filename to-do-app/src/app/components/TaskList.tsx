@@ -2,8 +2,8 @@
 'use client';
 
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@mui/material';
-import { Task } from '../types'; // Import Task type
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper} from '@mui/material';
+import {Task} from '../types'; // Import Task type
 
 interface TaskListProps {
     tasks: Task[]; // Use Task type here
@@ -11,7 +11,7 @@ interface TaskListProps {
     editTask: (id: number, updatedTask: Task) => void; // Function to edit a task
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask }) => {
+const TaskList: React.FC<TaskListProps> = ({tasks, deleteTask, editTask}) => {
     const handleEdit = (task: Task) => {
         const updatedTask = {
             ...task,
@@ -22,25 +22,38 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask }) => {
         editTask(task.id, updatedTask);
     };
 
+    const getPriorityColor = (priority: number) => {
+        if (priority >= 4) return '#d32f2f'; // High priority - Red
+        if (priority === 3) return '#f57c00'; // Medium priority - Orange
+        if (priority === 2) return '#1976d2'; // Low priority - Blue
+        return '#388e3c'; // Very low priority - Green
+    };
+
     return (
-        <TableContainer component={Paper} style={{ marginTop: '20px', borderRadius: '8px', backgroundColor: '#ffffff' }}>
+        <TableContainer component={Paper} style={{marginTop: '20px', borderRadius: '8px', backgroundColor: '#ffffff'}}>
             <Table>
-                <TableHead style={{ backgroundColor: '#00796b' }}>
+                <TableHead style={{backgroundColor: '#00796b'}}>
                     <TableRow>
-                        <TableCell style={{ color: '#ffffff' }}>Title</TableCell>
-                        <TableCell style={{ color: '#ffffff' }}>Description</TableCell>
-                        <TableCell style={{ color: '#ffffff' }}>Priority</TableCell>
-                        <TableCell style={{ color: '#ffffff' }}>Actions</TableCell>
+                        <TableCell style={{color: '#ffffff'}}>Title</TableCell>
+                        <TableCell style={{color: '#ffffff'}}>Description</TableCell>
+                        <TableCell style={{color: '#ffffff'}}>Priority</TableCell>
+                        <TableCell style={{color: '#ffffff'}}>Time</TableCell>
+                        <TableCell style={{color: '#ffffff'}}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {tasks.map((task) => (
                         <TableRow key={task.id}>
-                            <TableCell style={{ borderRight: '2px solid #00796b' }}>{task.title}</TableCell>
-                            <TableCell style={{ borderRight: '2px solid #00796b' }}>{task.description}</TableCell>
-                            <TableCell style={{ borderRight: '2px solid #00796b' }}>{task.priority}</TableCell>
+                            <TableCell style={{borderRight: '2px solid #00796b'}}>{task.title}</TableCell>
+                            <TableCell style={{borderRight: '2px solid #00796b'}}>{task.description}</TableCell>
+                            <TableCell
+                                style={{borderRight: '2px solid #00796b', color: getPriorityColor(task.priority)}}>
+                                {task.priority}
+                            </TableCell>
+                            <TableCell
+                                style={{borderRight: '2px solid #00796b'}}>{new Date(task.id).toLocaleString()}</TableCell>
                             <TableCell>
-                                <Button onClick={() => handleEdit(task)} color="primary" style={{ marginRight: '8px' }}>
+                                <Button onClick={() => handleEdit(task)} color="primary" style={{marginRight: '8px'}}>
                                     Edit
                                 </Button>
                                 <Button onClick={() => deleteTask(task.id)} color="secondary">
