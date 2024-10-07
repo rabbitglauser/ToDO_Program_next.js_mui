@@ -5,12 +5,23 @@ import React from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper} from '@mui/material';
 import {Task} from '../types'; // Import Task type
 
+/**
+ * Represents the properties needed for the TaskList component.
+ * @interface
+ */
 interface TaskListProps {
-    tasks: Task[]; // Use Task type here
-    deleteTask: (id: number) => void; // Function to delete a task
-    editTask: (id: number, updatedTask: Task) => void; // Function to edit a task
+    tasks: Task[];
+    deleteTask: (id: number) => void;
+    editTask: (id: number, updatedTask: Task) => void;
 }
 
+/**
+ * Represents a Task List component that displays a list of tasks along with functionalities to edit and delete tasks.
+ * @param tasks - An array of tasks to be displayed in the list.
+ * @param deleteTask - A function to delete a specific task.
+ * @param editTask - A function to edit a specific task.
+ * @returns A React functional component that renders the Task List with task details and actions.
+ */
 const TaskList: React.FC<TaskListProps> = ({tasks, deleteTask, editTask}) => {
     const handleEdit = (task: Task) => {
         const updatedTask = {

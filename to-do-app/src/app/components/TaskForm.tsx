@@ -5,10 +5,22 @@ import React, {useState} from 'react';
 import {Button, TextField, Grid, Snackbar, Alert} from '@mui/material';
 import {Task} from '../types'; // Import Task type
 
+/**
+ * Represents the properties expected by the TaskForm component.
+ */
 interface TaskFormProps {
     addTask: (task: Task) => void; // Use Task type here
 }
 
+/**
+ * Represents a form component for creating a new task.
+ * The TaskForm component allows users to input task details including title, description, and priority, and submit the task for addition to a task list.
+ * It provides functionality to validate input, display error messages, and adjust priority color based on user selection.
+ * Users can add a new task by filling out the form and submitting it.
+ * The form includes fields for task title, description, and priority level.
+ * If the title is empty or priority is outside the range of 0 to 10, an error message is displayed.
+ * The priority color changes based on the selected priority level.
+ */
 const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

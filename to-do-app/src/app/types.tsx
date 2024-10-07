@@ -1,7 +1,10 @@
 // src/app/types.ts
+/**
+ * Represents a task with its basic properties.
+ */
 export interface Task {
-    id: number;         // Unique identifier for each task
-    title: string;      // Title of the task
-    description: string; // Description of the task
-    priority: number;    // Priority level of the task (1 for low, 2 for medium, etc.)
+    id: number;
+    title: string;
+    description: string;
+    priority: number;
 }

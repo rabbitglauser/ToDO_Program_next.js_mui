@@ -7,6 +7,13 @@ import TaskForm from './components/TaskForm'; // Adjust path as necessary
 import TaskList from './components/TaskList'; // Adjust path as necessary
 import { Task } from './types'; // Adjust the import path as necessary
 
+/**
+ * Represents a functional component for a ToDo list application home page.
+ *
+ * This component manages the state of tasks, allowing users to add, delete, and edit tasks.
+ *
+ * @returns {ReactElement} The JSX for the home page containing the ToDo application interface.
+ */
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]); // Use Task type here
 
