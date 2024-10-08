@@ -29,7 +29,7 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault(); // look at this
         setError('');
         if (!title.trim() || priority < 0 || priority > 10) {
             setError('Title is required and priority must be between 0 and 10.');
@@ -71,11 +71,11 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
                         fullWidth
                         error={!!error}
                         style={{
-                            backgroundColor: '#e0f7fa', // Light Cyan
+                            backgroundColor: '#e0f7fa',
                             borderRadius: '5px',
                             '& .MuiOutlinedInput-root': {
                                 '& fieldset': {
-                                    borderColor: '#0097a7', // Cyan
+                                    borderColor: '#0097a7',
                                 },
                             },
                         }}
@@ -90,7 +90,7 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
                         multiline
                         rows={4}
                         style={{
-                            backgroundColor: '#e0f7fa', // Light Cyan
+                            backgroundColor: '#e0f7fa',
                             borderRadius: '5px',
                         }}
                     />
@@ -105,7 +105,7 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
                         fullWidth
                         inputProps={{min: 0, max: 10}}
                         style={{
-                            backgroundColor: '#e0f7fa', // Light Cyan
+                            backgroundColor: '#e0f7fa',
                             borderRadius: '5px',
                         }}
                         InputProps={{
@@ -122,11 +122,11 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
                         color="primary"
                         fullWidth
                         style={{
-                            backgroundColor: '#00796b', // Darker Teal
+                            backgroundColor: '#00796b',
                             color: '#ffffff',
                             borderRadius: '5px',
                             '&:hover': {
-                                backgroundColor: '#004d40', // Even Darker Teal
+                                backgroundColor: '#004d40',
                             },
                         }}
                     >

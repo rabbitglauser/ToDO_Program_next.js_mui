@@ -19,25 +19,28 @@ interface TaskListProps {
  * Represents a Task List component that displays a list of tasks along with functionalities to edit and delete tasks.
  * @param tasks - An array of tasks to be displayed in the list.
  * @param deleteTask - A function to delete a specific task.
- * @param editTask - A function to edit a specific task.
  * @returns A React functional component that renders the Task List with task details and actions.
  */
 const TaskList: React.FC<TaskListProps> = ({tasks, deleteTask, editTask}) => {
     const handleEdit = (task: Task) => {
-        const updatedTask = {
-            ...task,
-            title: prompt('Edit Task Title', task.title) || task.title,
-            description: prompt('Edit Task Description', task.description) || task.description,
-            priority: Number(prompt('Edit Task Priority (1 or more)', task.priority.toString())) || task.priority,
-        };
-        editTask(task.id, updatedTask);
+        try {
+            const updatedTask = {
+                ...task,
+                title: prompt('Edit Task Title', task.title) || task.title, // add dialog mit mui
+                description: prompt('Edit Task Description', task.description) || task.description, // add dialog mit mui
+                priority: Number(prompt('Edit Task Priority (1 or more)', task.priority.toString())) || task.priority, // add dialog mit mui
+            };
+            editTask(task.id, updatedTask);
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
     };
 
     const getPriorityColor = (priority: number) => {
-        if (priority >= 4) return '#d32f2f'; // High priority - Red
-        if (priority === 3) return '#f57c00'; // Medium priority - Orange
-        if (priority === 2) return '#1976d2'; // Low priority - Blue
-        return '#388e3c'; // Very low priority - Green
+        if (priority >= 4) return '#d32f2f';
+        if (priority === 3) return '#f57c00';
+        if (priority === 2) return '#1976d2';
+        return '#388e3c';
     };
 
     return (

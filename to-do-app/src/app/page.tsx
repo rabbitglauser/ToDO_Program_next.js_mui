@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { Container, Typography, Paper } from '@mui/material';
 import TaskForm from './components/TaskForm'; // Adjust path as necessary
 import TaskList from './components/TaskList'; // Adjust path as necessary
-import { Task } from './types'; // Adjust the import path as necessary
+import { Task } from './types';
+import {id} from "postcss-selector-parser"; // Adjust the import path as necessary
 
 /**
  * Represents a functional component for a ToDo list application home page.
@@ -38,7 +39,7 @@ const Home = () => {
             ToDo App
           </Typography>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
+          <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask}/>
         </Paper>
       </Container>
   );
